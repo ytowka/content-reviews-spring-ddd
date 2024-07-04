@@ -1,0 +1,53 @@
+[versions]
+agp = "8.2.0"
+hibernateCore = "5.6.5.Final"
+kotlin = "1.9.20"
+junit = "4.13.2"
+minio = "8.5.9"
+serialization = "1.6.3"
+junitVersion = "1.1.5"
+coroutines = "1.8.0"
+navigation = "2.7.7"
+koin = "3.5.4"
+koin-ksp = "1.3.1"
+datastore = "1.0.0"
+okhhtpLogging = "4.12.0"
+jwtParser = "0.12.5"
+coil = "2.6.0"
+spring = "2.7.18"
+spring-dependency-management = "1.1.4"
+springfoxSwagger2 = "2.9.2"
+springfoxSwagger2Annotatios = "1.6.12"
+apacheCommonsIo = "2.16.1"
+
+[libraries]
+jwt-parser = { module = "io.jsonwebtoken:jjwt", version.ref = "jwtParser" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+jackson = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+
+
+spring-boot-starter-data = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-security-test = { group="org.springframework.security", name = "spring-security-test" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+postges = { module = "org.postgresql:postgresql" }
+hibernate-core = { module = "org.hibernate:hibernate-core", version.ref = "hibernateCore" }
+minio = { module = "io.minio:minio", version.ref = "minio" }
+apache-commons-io = { module = "commons-io:commons-io", version.ref = "apacheCommonsIo" }
+spring-security-test = { module = "org.springframework.security:spring-security-test" }
+spring-boot-starter-logging = { module = "org.springframework.boot:spring-boot-starter-logging" }
+springfox-swagger2 = { module = "io.springfox:springfox-swagger2", version.ref = "springfoxSwagger2" }
+springfox-swagger2-ui = { module = "io.springfox:springfox-swagger-ui", version.ref = "springfoxSwagger2" }
+springfox-swagger2-annotations = { module = "io.swagger:swagger-annotations", version.ref = "springfoxSwagger2Annotatios" }
+springfox-swagger2-models = { module = "io.swagger:swagger-models", version.ref = "springfoxSwagger2Annotatios" }
+
+
+
+[plugins]
+spring-boot = {id = "org.springframework.boot", version.ref = "spring"}
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+
+
