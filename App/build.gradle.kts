@@ -5,8 +5,6 @@ plugins {
     alias(libs.plugins.spring.dependency.management)
     kotlin("jvm")
     kotlin("plugin.spring") version "1.9.23"
-    kotlin("plugin.jpa") version "1.9.23"
-    kotlin("plugin.serialization")
 }
 
 group = "com.danilkha"
@@ -17,29 +15,20 @@ java {
 }
 
 dependencies {
-    implementation(libs.spring.boot.starter.data)
-    implementation(libs.spring.boot.starter.jdbc)
     implementation(libs.spring.boot.starter.security)
-    implementation(libs.spring.boot.starter.test)
-    implementation(libs.spring.boot.security.test)
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.logging)
-    implementation (libs.hibernate.core)
-    implementation(libs.minio)
     implementation(libs.apache.commons.io)
     implementation(libs.jwt.parser)
     implementation(libs.kotlinx.serialization)
     implementation(libs.kotlin.reflect)
-    api(project(":Api"))
-    api(project(":Domain"))
-    implementation(libs.springfox.swagger2){
-        exclude("io.swagger", "swagger-annotations")
-        exclude("io.swagger", "swagger-models")
-    }
-    implementation(libs.springfox.swagger2.models)
-    implementation(libs.springfox.swagger2.annotations)
-    implementation(libs.springfox.swagger2.ui)
-    runtimeOnly(libs.postges)
+    implementation(project(":Controllers"))
+    implementation(project(":Domain"))
+    implementation(project(":Data"))
+    implementation(project(":Api"))
+
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.boot.security.test)
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.security.test)
 }

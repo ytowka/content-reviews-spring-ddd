@@ -1,7 +1,7 @@
 package com.danilkha.app.service
 
 import com.danilkha.contentreviews.api.review.ReviewRequest
-import com.danilkha.app.model.Role
+import com.danilkha.domain.model.Role
 import com.danilkha.app.security.userdetails.AccountUserDetails
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach

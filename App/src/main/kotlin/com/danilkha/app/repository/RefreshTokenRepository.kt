@@ -1,7 +1,0 @@
-package com.danilkha.app.repository
-
-import com.danilkha.app.entity.RefreshTokenEntity
-import org.springframework.data.jpa.repository.JpaRepository
-import java.util.UUID
-
-interface RefreshTokenRepository : JpaRepository<RefreshTokenEntity, UUID>

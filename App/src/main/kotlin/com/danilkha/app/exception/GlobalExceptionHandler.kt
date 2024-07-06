@@ -1,6 +1,7 @@
 package com.danilkha.app.exception
 
 import com.danilkha.contentreviews.ExceptionResponse
+import com.danilkha.domain.exception.ServiceException
 import org.slf4j.Logger
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -15,9 +16,9 @@ class GlobalExceptionHandler(
     fun handleServiceException(exception: ServiceException): ResponseEntity<ExceptionResponse> {
         logger.error("${exception.httpStatus} code with ${exception.message}")
         exception.printStackTrace()
-        return ResponseEntity.status(exception.httpStatus.value())
+        return ResponseEntity.status(exception.httpStatus)
             .body(ExceptionResponse(
-                status = exception.httpStatus.value(),
+                status = exception.httpStatus,
                 error = exception::class.simpleName!!,
                 message = exception.message ?: ""
             ))

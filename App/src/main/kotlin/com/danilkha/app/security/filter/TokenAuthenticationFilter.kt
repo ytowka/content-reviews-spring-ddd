@@ -1,11 +1,11 @@
 package com.danilkha.app.security.filter
 
-import com.danilkha.app.model.AccountDto
+import com.danilkha.domain.model.Account
 import com.danilkha.app.security.exception.AuthenticationHeaderException
 import com.danilkha.app.security.model.TokenRequest
 import com.danilkha.app.security.util.HttpResponseUtil
 import com.danilkha.app.security.util.HttpSettingUtil
-import com.danilkha.app.service.AuthenticationService
+import com.danilkha.domain.usecase.authentication.GetUserInfoByTokenUseCase
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.context.SecurityContextHolder
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse
 
 
 class TokenAuthenticationFilter(
-    private val authenticationService: AuthenticationService,
+    private val getUserInfoByTokenUseCase: GetUserInfoByTokenUseCase,
     authenticationManager: AuthenticationManager
 ) :
     RequestHeaderAuthenticationFilter() {
@@ -40,7 +40,7 @@ class TokenAuthenticationFilter(
             )
             if(token != null) {
                 try {
-                    val account: AccountDto = authenticationService.userInfoByToken(token)
+                    val account: Account = getUserInfoByTokenUseCase(token.token)!!
                     SecurityContextHolder.getContext().authentication = PreAuthenticatedAuthenticationToken(account, token)
                 }catch (e: Exception) {
                     throw AuthenticationHeaderException(e.message, e)

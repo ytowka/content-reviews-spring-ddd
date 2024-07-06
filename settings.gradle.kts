@@ -1,7 +1,9 @@
 rootProject.name = "ContentReviews"
 include(":App")
 include(":Api")
-include("Domain")
+include(":Domain")
+include(":Data")
+include(":Controllers")
 
 pluginManagement {
     repositories {

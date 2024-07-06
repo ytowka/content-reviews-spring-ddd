@@ -6,6 +6,9 @@ group = "com.danilkha"
 version = "unspecified"
 
 dependencies {
+    implementation(libs.javax.inject)
+    implementation(libs.javax.annotation)
+
     testImplementation(kotlin("test"))
 }
 

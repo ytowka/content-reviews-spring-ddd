@@ -2,7 +2,7 @@ package com.danilkha.app.security.config
 
 import com.danilkha.app.security.filter.TokenAuthenticationFilter
 import com.danilkha.app.security.userdetails.TokenAuthenticationUserDetailsService
-import com.danilkha.app.service.AuthenticationService
+import com.danilkha.domain.usecase.authentication.GetUserInfoByTokenUseCase
 import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationManager
@@ -23,8 +23,9 @@ import org.springframework.security.web.authentication.preauth.RequestHeaderAuth
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 class WebSecurityConfig(
     private val authorizationUserDetailsService: TokenAuthenticationUserDetailsService,
-    private val authenticationService: AuthenticationService
+    private val getUserInfoByTokenUseCase: GetUserInfoByTokenUseCase
 ) : WebSecurityConfigurerAdapter() {
+
 
 
     override fun configure(web: WebSecurity) {
@@ -70,7 +71,7 @@ class WebSecurityConfig(
 
     fun tokenAuthorizationFilter(): RequestHeaderAuthenticationFilter {
         return TokenAuthenticationFilter(
-            authenticationService, authenticationManager()
+            getUserInfoByTokenUseCase, authenticationManager()
         )
     }
 

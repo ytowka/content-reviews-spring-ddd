@@ -1,7 +1,7 @@
 package com.danilkha.app
 
-import com.danilkha.app.repository.ContentRepository
-import com.danilkha.app.repository.TopicRepository
+import com.danilkha.data.jparepository.ContentJpaRepository
+import com.danilkha.data.jparepository.TopicJpaRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,10 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest
 class ContentReviewsBackendApplicationTests {
 
     @Autowired
-    lateinit var contentRepository: ContentRepository
+    lateinit var contentRepository: ContentJpaRepository
 
     @Autowired
-    lateinit var topicRepository: TopicRepository
+    lateinit var topicRepository: TopicJpaRepository
 
     @Test
     fun `avg mark and count subquery works`() {
