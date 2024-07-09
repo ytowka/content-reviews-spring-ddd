@@ -1,14 +1,14 @@
 package com.danilkha.domain.repository
 
 import com.danilkha.domain.model.Content
+import com.danilkha.domain.model.PagedData
 
 interface ContentRepository{
 
     fun getContentWithReviews(
         topicId: Long,
-        offset: Int,
-        size: Int
-    ): List<Content>
+        page: Int,
+    ): PagedData<Content>
 
 
 

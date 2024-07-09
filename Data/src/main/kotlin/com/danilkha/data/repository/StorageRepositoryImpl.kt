@@ -1,7 +1,8 @@
-package com.danilkha.app.service
+package com.danilkha.data.repository
 
+import com.danilkha.domain.repository.StorageRepository
 import io.minio.*
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import java.io.BufferedInputStream
 import java.io.File
@@ -10,18 +11,10 @@ import java.io.InputStream
 import java.net.URL
 import java.util.*
 
-@Service
-class StorageServiceImpl(
+@Component
+class StorageRepositoryImpl(
     private val minioClient: MinioClient
-) : StorageService{
-
-    override fun saveFile(file: MultipartFile): String {
-        return saveFile(
-            fileName = UUID.randomUUID().toString()+file.originalFilename,
-            inputStream = file.inputStream,
-            size = file.size
-        )
-    }
+) : StorageRepository {
 
     override fun saveFile(
         fileName: String,
@@ -74,7 +67,8 @@ class StorageServiceImpl(
 
 
     override fun getFile(filename: String): InputStream {
-        return minioClient.getObject(GetObjectArgs
+        return minioClient.getObject(
+            GetObjectArgs
             .builder()
             .bucket(FILES_BUCKET)
             .`object`(filename)

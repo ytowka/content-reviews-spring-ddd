@@ -1,19 +1,20 @@
 package com.danilkha.app.security.userdetails
 
+import com.danilkha.domain.authentication.AuthenticatedAccount
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.util.UUID
 
 class AccountUserDetails(
-    val id: UUID,
+    override val id: UUID,
     private val authorities: MutableCollection<GrantedAuthority>,
-    private val password: String,
-    private val username: String,
-    private val isAccountNonExpired: Boolean,
-    private val isAccountNonLocked: Boolean,
-    private val isCredentialsNonExpired: Boolean,
-    private val isEnabled: Boolean,
-) : UserDetails {
+    override val password: String,
+    override val username: String,
+    override val isAccountNonExpired: Boolean,
+    override val isAccountNonLocked: Boolean,
+    override val isCredentialsNonExpired: Boolean,
+    override val isEnabled: Boolean,
+) : UserDetails, AuthenticatedAccount {
 
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

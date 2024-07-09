@@ -29,23 +29,19 @@ data class ReviewEntity(
 
 fun ReviewEntity.toDto(): Review = Review(
     id = id,
-    userId = userId.toString(),
+    userId = userId,
     contentId = contentId,
     userAvatarUrl = userPreview?.avatarFileName,
     text = text,
     mark = mark,
     userName = userPreview?.login ?: "",
-    writeTime = writeDateTime.time,
+    writeTime = writeDateTime,
     contentName = content?.name ?: ""
 )
 
-fun Review.toEntity(
-    id: Long = 0,
-    userId: UUID,
-    writeTime: Timestamp
-): ReviewEntity = ReviewEntity(
+fun Review.toEntity(): ReviewEntity = ReviewEntity(
     id = id,
-    userId = userId,
+    userId = this.userId,
     contentId = this.contentId,
     text = this.text,
     mark = this.mark,
