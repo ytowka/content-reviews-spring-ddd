@@ -1,12 +1,12 @@
 package com.danilkha.controller
 
-import com.danilkha.domain.SampleInjectedComponent
 import com.danilkha.contentreviews.api.auth.*
 import com.danilkha.domain.usecase.authentication.LoginUseCase
 import com.danilkha.domain.usecase.authentication.RefreshTokenUseCase
 import com.danilkha.domain.usecase.authentication.RegisterUserUseCase
+import com.danilkha.domain.usecase.user.GetDefaultAvatarUseCase
+import com.danilkha.domain.usecase.user.UpdateUserAvatarUseCase
 import com.danilkha.mappers.toResponse
-import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
@@ -16,14 +16,8 @@ class AuthController(
     private val loginUseCase: LoginUseCase,
     private val refreshTokenUseCase: RefreshTokenUseCase,
     private val registerUserUseCase: RegisterUserUseCase,
-
-    private val userService: UserService,
-    private val sampleInjectedComponent: SampleInjectedComponent
-) : AuthApi{
-
-    init {
-        LoggerFactory.getLogger(javaClass).info(sampleInjectedComponent.hashCode().toString())
-    }
+    private val updateAvatarUseCase: UpdateUserAvatarUseCase,
+    ) : AuthApi{
 
     @PostMapping("/sign-in")
     override fun login(@RequestBody loginRequest: LoginRequest): TokenPairResponse {
@@ -51,11 +45,19 @@ class AuthController(
 
     @PostMapping("/sign-up/avatar")
     fun uploadAvatar(@RequestParam("image") file: MultipartFile): LoadFileResult{
-        return userService.updateAvatar(file)
+        val url = updateAvatarUseCase(
+            UpdateUserAvatarUseCase.Params(
+                fileName = file.name,
+                inputStream = file.inputStream,
+                size = file.size
+            )
+        )
+        return LoadFileResult(url)
     }
 
     @PostMapping("/sign-up/avatar/empty")
     fun uploadAvatar(): LoadFileResult{
-        return userService.updateAvatar(null)
+        val url = updateAvatarUseCase(null)
+        return LoadFileResult(url)
     }
 }

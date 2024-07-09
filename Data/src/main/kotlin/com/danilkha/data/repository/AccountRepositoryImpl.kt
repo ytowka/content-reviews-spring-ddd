@@ -1,12 +1,12 @@
 package com.danilkha.data.repository
 
-import com.danilkha.app.service.UserServiceImpl.Companion.DEFAULT_PAGE_SIZE
 import com.danilkha.data.entity.toDto
 import com.danilkha.data.entity.toEntity
 import com.danilkha.data.jparepository.AccountJpaRepository
 import com.danilkha.domain.model.Account
 import com.danilkha.domain.model.PagedData
 import com.danilkha.domain.repository.AccountRepository
+import org.springframework.beans.support.PagedListHolder.DEFAULT_PAGE_SIZE
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component

@@ -4,7 +4,8 @@ import com.danilkha.contentreviews.api.review.ReviewApi
 import com.danilkha.contentreviews.api.review.ReviewListResponse
 import com.danilkha.contentreviews.api.review.ReviewRequest
 import com.danilkha.contentreviews.api.review.ReviewResponse
-import com.danilkha.app.service.ReviewService
+import com.danilkha.domain.usecase.reviews.*
+import com.danilkha.mappers.toResponse
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.Authorization
@@ -15,8 +16,12 @@ import java.util.*
 @Api(tags = ["Posts | Посты"], value = "Пост")
 @RequestMapping("/api/reviews")
 class ReviewController(
-    private val reviewService: ReviewService
-) : ReviewApi{
+    private val getReviewsByContentUseCase: GetReviewsByContentUseCase,
+    private val getReviewsByUserUseCase: GetReviewsByUserUseCase,
+    private val getReviewsByUserContentUseCase: GetReviewByUserContentUseCase,
+    private val writeOrUpdateReviewUseCase: WriteOrUpdateReviewUseCase,
+    private val deleteReviewUseCase: DeleteReviewUseCase,
+    ) : ReviewApi{
 
     @GetMapping("/content/{contentId}")
     @ApiOperation(
@@ -28,7 +33,7 @@ class ReviewController(
         authorizations = [Authorization(value = "jwt")]
     )
     override fun getReviewsByContent(@PathVariable contentId: Long, @RequestParam page: Int): ReviewListResponse {
-        return reviewService.getReviewsByContent(contentId, page)
+        return getReviewsByContentUseCase(contentId, page).toResponse()
     }
 
     @ApiOperation(
@@ -40,7 +45,7 @@ class ReviewController(
     )
     @GetMapping("/user/{userId}")
     override fun getReviewsByUser(@PathVariable userId: UUID, @RequestParam page: Int): ReviewListResponse {
-        return reviewService.getReviewsByUser(userId, page)
+        return getReviewsByUserUseCase(userId, page).toResponse()
     }
 
     @ApiOperation(
@@ -52,7 +57,7 @@ class ReviewController(
     )
     @GetMapping("/user/{userId}/content/{contentId}")
     override fun getReviewByUserContent(@PathVariable("userId") userId: UUID, @PathVariable("contentId") contentId: Long): ReviewResponse {
-        return reviewService.getReviewByUserContent(userId, contentId)
+        return getReviewsByUserContentUseCase(userId, contentId).toResponse()
     }
 
     @ApiOperation(
@@ -63,7 +68,7 @@ class ReviewController(
     )
     @PostMapping
     override fun writeReview(@RequestBody reviewRequest: ReviewRequest) {
-        return reviewService.writeReview(reviewRequest)
+        return writeOrUpdateReviewUseCase(reviewRequest.toParam())
     }
 
     @ApiOperation(
@@ -75,7 +80,7 @@ class ReviewController(
     @PutMapping
     override fun editReview(@RequestBody reviewRequest: ReviewRequest) {
         println("editReview $reviewRequest")
-        return reviewService.editReview(reviewRequest)
+        return writeOrUpdateReviewUseCase(reviewRequest.toParam())
     }
 
     @ApiOperation(
@@ -86,6 +91,10 @@ class ReviewController(
     )
     @DeleteMapping("/{reviewId}")
     override fun deleteReview(@PathVariable reviewId: Long) {
-        return reviewService.deleteReview(reviewId)
+        return deleteReviewUseCase(reviewId)
     }
+
+    private fun ReviewRequest.toParam() = WriteOrUpdateReviewUseCase.Params(
+        contentId, mark, text
+    )
 }

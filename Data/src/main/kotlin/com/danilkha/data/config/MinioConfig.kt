@@ -1,4 +1,4 @@
-package com.danilkha.data
+package com.danilkha.data.config
 
 import io.minio.MinioClient
 import org.springframework.beans.factory.annotation.Value

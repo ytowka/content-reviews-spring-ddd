@@ -4,9 +4,11 @@ import com.danilkha.data.entity.AccountEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
+import org.springframework.stereotype.Repository
 import java.util.UUID
 import javax.transaction.Transactional
 
+@Repository
 interface AccountJpaRepository : JpaRepository<AccountEntity, UUID> {
 
     fun getByLogin(login: String): AccountEntity?

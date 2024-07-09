@@ -7,13 +7,13 @@ import java.util.UUID
 
 class AccountUserDetails(
     override val id: UUID,
-    private val authorities: MutableCollection<GrantedAuthority>,
-    override val password: String,
-    override val username: String,
-    override val isAccountNonExpired: Boolean,
-    override val isAccountNonLocked: Boolean,
-    override val isCredentialsNonExpired: Boolean,
-    override val isEnabled: Boolean,
+    private  val authorities: MutableCollection<GrantedAuthority>,
+    override val passwordEncoded: String,
+    override val userName: String,
+    override val isActive: Boolean,
+    override val isNotExpired: Boolean,
+    override val isNotLocked: Boolean,
+    override val isCredentialsNotExpired: Boolean,
 ) : UserDetails, AuthenticatedAccount {
 
 
@@ -21,9 +21,9 @@ class AccountUserDetails(
         return authorities;
     }
 
-    override fun getPassword(): String = password
+    override fun getPassword(): String = passwordEncoded
 
-    override fun getUsername(): String = username
+    override fun getUsername(): String = userName
 
     override fun isAccountNonExpired(): Boolean = isAccountNonExpired
 
@@ -31,6 +31,6 @@ class AccountUserDetails(
 
     override fun isCredentialsNonExpired(): Boolean = isCredentialsNonExpired
 
-    override fun isEnabled(): Boolean = isEnabled
+    override fun isEnabled(): Boolean = isActive
 
 }

@@ -9,5 +9,4 @@ interface UserApi {
     fun get(id: String): UserResponse
     fun update(user: UserRequest)
     fun getMe() : UserResponse
-    fun getUserTasteMatchScore(id: UUID): UserTasteMatchScoreResponse
 }

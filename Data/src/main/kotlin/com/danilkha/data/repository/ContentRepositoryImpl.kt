@@ -6,6 +6,7 @@ import com.danilkha.data.jparepository.ContentJpaRepository
 import com.danilkha.domain.model.Content
 import com.danilkha.domain.model.PagedData
 import com.danilkha.domain.repository.ContentRepository
+import org.springframework.beans.support.PagedListHolder.DEFAULT_PAGE_SIZE
 import org.springframework.stereotype.Component
 
 @Component

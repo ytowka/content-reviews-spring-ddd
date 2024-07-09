@@ -26,12 +26,12 @@ class TokenAuthenticationUserDetailsService : AuthenticationUserDetailsService<P
                 AccountUserDetails(
                     id = account.id,
                     authorities = authorities.toMutableList(),
-                    password = password,
-                    username = login,
-                    isCredentialsNonExpired = true,
-                    isAccountNonLocked = !account.isBlocked,
-                    isEnabled = true,
-                    isAccountNonExpired = true,
+                    passwordEncoded = password,
+                    userName = login,
+                    isCredentialsNotExpired = true,
+                    isNotLocked = !account.isBlocked,
+                    isActive = true,
+                    isNotExpired = true,
                 )
             } ?: throw UsernameNotFoundException(
                 "Unknown user by token $token"

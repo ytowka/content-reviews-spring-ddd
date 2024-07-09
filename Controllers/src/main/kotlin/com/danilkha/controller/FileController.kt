@@ -1,6 +1,6 @@
 package com.danilkha.controller
 
-import com.danilkha.app.service.StorageService
+import com.danilkha.domain.usecase.storage.GetFileUseCase
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.Resource
 import org.springframework.http.MediaType
@@ -15,7 +15,7 @@ const val FILES_PATH = "/files"
 @RestController
 @RequestMapping(FILES_PATH)
 class FileController(
-    private val storageService: StorageService
+    private val getFileUseCase: GetFileUseCase,
 ) {
 
 
@@ -27,6 +27,6 @@ class FileController(
         }else MediaType.IMAGE_PNG
         return ResponseEntity.ok()
             .contentType(contentType)
-            .body(ByteArrayResource(storageService.getFile(filename).readBytes()))
+            .body(ByteArrayResource(getFileUseCase(filename).readBytes()))
     }
 }

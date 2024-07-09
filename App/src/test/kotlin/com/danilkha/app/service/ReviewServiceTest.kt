@@ -31,12 +31,12 @@ class ReviewServiceTest {
         val user: UserDetails = AccountUserDetails(
             id = UUID.fromString("94625995-541d-4455-a2bb-7ddab33e80d7"),
             authorities = authorities.toMutableList(),
-            password = "admin2222",
-            username = "test_user",
-            isCredentialsNonExpired = true,
-            isAccountNonLocked = true,
-            isEnabled = true,
-            isAccountNonExpired = true,
+            passwordEnoded = "admin2222",
+            userName = "test_user",
+            isCredentialsNotExpired = true,
+            isNotLocked = true,
+            isActive = true,
+            isNotExpired = true,
         )
 
         SecurityContextHolder.getContext().authentication = TestingAuthenticationToken(
@@ -48,7 +48,7 @@ class ReviewServiceTest {
     @Test
     fun testSecurityContext(){
         val user = SecurityContextHolder.getContext().authentication.principal as AccountUserDetails
-        assertEquals("test_user", user.username)
+        assertEquals("test_user", user.userName)
     }
 
     @Test

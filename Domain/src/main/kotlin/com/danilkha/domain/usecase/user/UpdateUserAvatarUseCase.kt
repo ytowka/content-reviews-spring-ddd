@@ -26,7 +26,7 @@ class UpdateUserAvatarUseCase(
                 size = params.size
             )
         }else{
-            getDefaultAvatarUseCase(user.username)
+            getDefaultAvatarUseCase(user.userName)
         }
 
         accountRepository.setAvatar(fileName, user.id)
